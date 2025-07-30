@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
-import struct, hashlib, unittest, operator, getpass, sys
+import struct, hashlib, unittest, operator, getpass, sys, os
 
 def cli():
     if len(sys.argv) > 2:
         sys.exit('usage: vimdecrypt [path]')
 
+    password = os.environ.get("__VIMDECRYPT_PW__", None)
     file = sys.argv[1] if len(sys.argv) == 2 else sys.stdin.buffer
-    print(decrypt(file))
-
+    print(decrypt(file, pw = password))
 
 def blowfish(key):
   try:
